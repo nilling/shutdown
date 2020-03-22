@@ -35,9 +35,12 @@ private:
     QLabel *pwd;
     QPushButton * buton;
     QSystemTrayIcon * tra;
+    QMenu *tramenu;
+    QAction * quit_action;
     void setlabelfont(int size);
     void butclicked();
     void showmenu();
+    void createmenu();
     void traevent(QSystemTrayIcon::ActivationReason reson);
 
 };

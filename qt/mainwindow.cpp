@@ -5,7 +5,8 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow), pwd(new QLabel(tr("请设定密码"))),
     txt(new QLineEdit()), buton(new QPushButton("确定")),
-    tra(new QSystemTrayIcon())
+    tra(new QSystemTrayIcon()),tramenu(new QMenu()),
+    quit_action(new QAction())
 {
     ui->setupUi(this);
     pwd->setGeometry(80,  3, 100, 60);
@@ -18,6 +19,7 @@ MainWindow::MainWindow(QWidget *parent) :
     buton->setGeometry(140, 80, 100, 40);
     QObject::connect(buton,  &QPushButton::clicked, this, &MainWindow::butclicked);
     buton->setParent(this);
+    createmenu();
     this->setWindowTitle("shutdown");
     this->setFixedSize(400, 150);
 }
@@ -42,13 +44,15 @@ void MainWindow::butclicked(){
     connect(tra, &QSystemTrayIcon::activated, this, &MainWindow::traevent);
 }
 
+void MainWindow::createmenu(){
+    quit_action->setParent(tramenu);
+    quit_action->setText("退出");
+    tramenu->addAction(quit_action);
+    connect(quit_action, &QAction::triggered, this, &QApplication::quit);
+    tra->setContextMenu(tramenu);
+}
+
 void MainWindow::showmenu(){
-    std::shared_ptr<QMenu> tramenu = std::make_shared<QMenu>(this);
-    std::shared_ptr<QAction> quit_aciton = std::make_shared <QAction>(tramenu.get());
-    quit_aciton->setText("退出");
-    tramenu->addAction(quit_aciton.get());
-    connect(quit_aciton.get(), &QAction::triggered, this, &QApplication::quit);
-    tra->setContextMenu(tramenu.get());
     tramenu->show();
 }
 
