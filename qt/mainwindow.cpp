@@ -36,12 +36,22 @@ void MainWindow::setlabelfont(int size){
 }
 
 void MainWindow::butclicked(){
-    this->setHidden(true);
-    tra->setIcon(QIcon(":/icon/1.png"));
-    tra->setToolTip("shut down");
-    tra->show();
-    tra->showMessage("information", "shut down is running", QSystemTrayIcon::MessageIcon::Information);
-    connect(tra, &QSystemTrayIcon::activated, this, &MainWindow::traevent);
+    QString pasd = txt->text();
+    if (pasd  == ""){
+        QMessageBox::information(this, "提示", "密码不能为空", QMessageBox::Yes, QMessageBox::Yes);
+    }else{
+        QRegExp rx("^[a-zA-Z0-9_]*$");
+        if (!rx.indexIn(pasd)){
+            this->setHidden(true);
+            tra->setIcon(QIcon(":/icon/1.png"));
+            tra->setToolTip("shut down");
+            tra->show();
+            tra->showMessage("information", "shut down is running", QSystemTrayIcon::MessageIcon::Information);
+            connect(tra, &QSystemTrayIcon::activated, this, &MainWindow::traevent);
+        }else{
+            QMessageBox::information(this, "提示", "密码只能包含数字、字母和下划线", QMessageBox::Yes, QMessageBox::Yes);
+        }
+    }
 }
 
 void MainWindow::createmenu(){

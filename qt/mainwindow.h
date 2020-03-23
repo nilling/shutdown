@@ -13,6 +13,10 @@
 #include <QIcon>
 #include <QMenu>
 #include <QAction>
+#include <QRegExp>
+#include <QString>
+#include <string>
+#include <QMessageBox>
 
 #include <memory>
 
