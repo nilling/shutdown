@@ -48,6 +48,8 @@ void MainWindow::butclicked(){
             tra->show();
             tra->showMessage("information", "shut down is running", QSystemTrayIcon::MessageIcon::Information);
             connect(tra, &QSystemTrayIcon::activated, this, &MainWindow::traevent);
+            Server s(std::move(pasd.toStdString()));
+            s.listend(nullptr);
         }else{
             QMessageBox::information(this, "提示", "密码只能包含数字、字母和下划线", QMessageBox::Yes, QMessageBox::Yes);
         }

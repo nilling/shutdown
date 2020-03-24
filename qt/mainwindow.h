@@ -19,6 +19,7 @@
 #include <QMessageBox>
 
 #include <memory>
+#include "server.h"
 
 const int FONTSIZE = 14;
 namespace Ui {
